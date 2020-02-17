@@ -20,17 +20,19 @@ void by3seg(int num){
     }
 }
 typedef struct by3s{
+    int id;
     long long div;
     int modit;
     char* moniker;
 } by3s;
 
-by3s sby3s[5] ={
-    {1000000000000,  0, "Trillion "},
-    {   1000000000,  1, "Billion "},
-    {      1000000,  1,  "Million "},
-    {         1000,  1, "Thousand "},
-    {            1,  1, ""}
+by3s sby3s[6] ={
+    { 0,            1,  1, ""},
+    { 1,         1000,  1, "Thousand "},
+    { 2,      1000000,  1,  "Million "},
+    { 3,    1000000000,  1, "Billion "},
+    { 4, 1000000000000,  0, "Trillion "},
+    { -1,0,0,"ERROR"}
 };
 
 int main() {
@@ -43,7 +45,7 @@ int main() {
             printf("Zero");
             return 0;            
         } 
-        for(int i=0;i<5;++i){
+        for(int i=4;i>=0;--i){
             // int nn = n / sby3s[i].div;
             // if( sby3s[i].modit )
             //     nn = nn % 1000;

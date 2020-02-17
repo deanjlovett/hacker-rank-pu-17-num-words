@@ -26,11 +26,11 @@ function by3seg( num ){
 }
 
 let sby3s = [
-    { div:1000000000000,  modit: false, moniker: 'Trillion '},
-    { div:   1000000000,  modit:  true, moniker:  'Billion '},
-    { div:      1000000,  modit:  true, moniker:  'Million '},
-    { div:         1000,  modit:  true, moniker: 'Thousand '},
     { div:            1,  modit:  true, moniker:          ''},
+    { div:         1000,  modit:  true, moniker: 'Thousand '},
+    { div:      1000000,  modit:  true, moniker:  'Million '},
+    { div:   1000000000,  modit:  true, moniker:  'Billion '},
+    { div:1000000000000,  modit: false, moniker: 'Trillion '},
 ];
 
 function processNum(snum){
@@ -43,7 +43,7 @@ function processNum(snum){
         console.log('Zero');
         return;
     }
-    for(let i=0;i<5;++i){
+    for(let i=4;i>=0;--i){
         let nn = trnc(num / sby3s[i].div);
         if( sby3s[i].modit ){
             nn %= 1000;            
