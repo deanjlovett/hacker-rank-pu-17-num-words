@@ -42,6 +42,7 @@ let millsd={
     '3':'Million',
     '4':'Billion',
     '5':'Trillion',
+    '6':'Quadrillion',
 }
 
 function processData(input) {
@@ -56,10 +57,10 @@ function processData(input) {
 function processNum(snum){
     let ret='';
 
-    snum = snum.replace(/\s+/g, '')
+    snum = snum.replace(/\s+/g, '');
     // console.log('string(',snum,')');
     let mills= snum.length===1?1:Math.ceil((snum.length)/3);
-    let subm=(snum.length-1)%3;
+    let subm=(snum.length-1)%3 + 1;
     // console.log('chunk by threes:',snum.length, mills, subm);
     let cur;
     if( parseInt(snum,10)===0){
@@ -67,38 +68,36 @@ function processNum(snum){
         return;
     }
 
-    for( let i=5;i>0;--i){
-        if(mills===i){ //tills
-            cur  = snum.substring(0,subm+1);
-            snum = snum.substring(subm+1);
-            let  n = parseInt(cur,10);
-            let dn = n%100;
-            let pre = '';
-            cur = '' + n;
-            if( cur.length === 3 ){
-                let h=cur.substring(0,1);
-                cur = cur.substring(1,3);
-                pre = ones[h]+' Hundred';
-            }
-            if(dn>0){
-                if(dn<20){ 
-                    pre += cur=='0' ? '' : ((pre.length>0?' ':'') + ones[cur]);
-                }else{
-                    let t = cur.substring(0,1);
-                    let s = cur.substring(1,2);
-                    pre += (pre.length>0?' ':'') + tens[t] + (s=='0' ? '' : (' '+ ones[s]));
-                }
-            }
-            if( pre.length>0 && millsd[i].length>0) pre += ' '+ millsd[i];
-    
-            if( ret.length>0)
-                ret += ' ' + pre;
-            else
-                ret = pre;
-                
-            --mills;
-            subm=2;
+    for( let i=mills;i>0;--i){
+        cur  = snum.substring(0,subm);
+        snum = snum.substring(subm);
+        let  n = parseInt(cur,10);
+        let dn = n%100;
+        let pre = '';
+        cur = '' + n;
+        if( cur.length === 3 ){
+            let h=cur.substring(0,1);
+            cur = cur.substring(1,3);
+            pre = ones[h]+' Hundred';
         }
+        if(dn>0){
+            if(dn<20){ 
+                pre += cur=='0' ? '' : ((pre.length>0?' ':'') + ones[cur]);
+            }else{
+                let t = cur.substring(0,1);
+                let s = cur.substring(1,2);
+                pre += (pre.length>0?' ':'') + tens[t] + (s=='0' ? '' : (' '+ ones[s]));
+            }
+        }
+        if( pre.length>0 && millsd[i].length>0) pre += ' '+ millsd[i];
+
+        if( ret.length>0)
+            ret += ' ' + pre;
+        else
+            ret = pre;
+            
+        --mills;
+        subm=3;
     }
 
     console.log(ret);
