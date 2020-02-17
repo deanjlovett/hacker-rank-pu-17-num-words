@@ -264,6 +264,7 @@ function processNum(snum){
                 pre += (pre.length>0?' ':'') + tens[t] + (s=='0' ? '' : (' '+ ones[s]));
             }
         }
+        if( pre.length>0) pre += ' '+ millsd[2];
 
         // switch(cur.length){
         //     case 3:
