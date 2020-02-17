@@ -1,6 +1,6 @@
 
 let ones={
-    '0':'',    '00':'',
+//   '0':'',    '00':'',
 
     '1':'One',    '01':'One',
     '2':'Two',    '02':'Two',
@@ -24,8 +24,8 @@ let ones={
     '19':'Nineteen',
 };
 let tens={
-    '0':'',
-    '1':'',
+//    '0':'',
+//    '1':'',
     '2':'Twenty',
     '3':'Thirty',
     '4':'Forty',
@@ -36,8 +36,8 @@ let tens={
     '9':'Ninety',
 };
 let millsd={
-    '0':'',
-    '1':'',
+    // '0':'',
+    // '1':'',
     '2':'Thousand',
     '3':'Million',
     '4':'Billion',
@@ -58,15 +58,13 @@ function processNum(snum){
     let ret='';
 
     snum = snum.replace(/\s+/g, '');
-    // console.log('string(',snum,')');
-    let mills= snum.length===1?1:Math.ceil((snum.length)/3);
-    let subm=(snum.length-1)%3 + 1;
-    // console.log('chunk by threes:',snum.length, mills, subm);
-    let cur;
     if( parseInt(snum,10)===0){
         console.log('Zero');
         return;
     }
+    let mills= snum.length===1?1:Math.ceil((snum.length)/3);
+    let subm=(snum.length-1)%3 + 1;
+    let cur;
 
     for( let i=mills;i>0;--i){
         cur  = snum.substring(0,subm);
@@ -89,7 +87,7 @@ function processNum(snum){
                 pre += (pre.length>0?' ':'') + tens[t] + (s=='0' ? '' : (' '+ ones[s]));
             }
         }
-        if( pre.length>0 && millsd[i].length>0) pre += ' '+ millsd[i];
+        if( pre.length>0 && i>=2) pre += ' '+ millsd[i];
 
         if( ret.length>0)
             ret += ' ' + pre;
